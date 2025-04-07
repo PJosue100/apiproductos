@@ -34,6 +34,16 @@ public class Producto {
     @Column(name = "creado_en")
     private Instant creadoEn;
 
+    @Size(max = 2000)
+    @ColumnDefault("' '")
+    @Column(name = "descripcion_extensa", length = 2000)
+    private String descripcionExtensa;
+
+    @NotNull
+    @ColumnDefault("0")
+    @Column(name = "unidades_disponibles", nullable = false)
+    private Integer unidadesDisponibles;
+
     public Integer getId() {
         return id;
     }
@@ -74,4 +84,33 @@ public class Producto {
         this.creadoEn = creadoEn;
     }
 
+    public String getDescripcionExtensa() {
+        return descripcionExtensa;
+    }
+
+    public void setDescripcionExtensa(String descripcionExtensa) {
+        this.descripcionExtensa = descripcionExtensa;
+    }
+
+    public Integer getUnidadesDisponibles() {
+        return unidadesDisponibles;
+    }
+
+    public void setUnidadesDisponibles(Integer unidadesDisponibles) {
+        this.unidadesDisponibles = unidadesDisponibles;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "id=" + id +
+                ", imagenUrl='" + imagenUrl + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", precio=" + precio +
+                ", creadoEn=" + creadoEn +
+                ", descripcionExtensa='" + descripcionExtensa + '\'' +
+                ", unidadesDisponibles=" + unidadesDisponibles +
+                '}';
+    }
 }

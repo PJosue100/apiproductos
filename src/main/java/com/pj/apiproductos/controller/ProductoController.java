@@ -25,6 +25,11 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.obtenerTodos());
     }
 
+    @GetMapping("/publico_disponbles")
+    public ResponseEntity<List<Producto>> obtenerProductosDisponibles() {
+        return ResponseEntity.ok(productoService.obtenerTodos());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Producto> obtenerProductoPorId(@PathVariable Long id) {
         return ResponseEntity.ok(productoService.obtenerPorId(id));
@@ -47,4 +52,13 @@ public class ProductoController {
     public ResponseEntity<Boolean> eliminarProducto(@PathVariable Long id) {
         return ResponseEntity.ok(productoService.eliminarProducto(id));
     }
+
+    @PutMapping("/update-stock/{id}")
+    public ResponseEntity<Producto> actualizarCantidadDisponbleProducto(@PathVariable Long id, @RequestBody String cantidadVendida) {
+        int cantidad = Integer.parseInt(cantidadVendida);
+        return ResponseEntity.ok(productoService.actualizarCantidadDisponibleProducto(id, cantidad));
+    }
+
+
+
 }

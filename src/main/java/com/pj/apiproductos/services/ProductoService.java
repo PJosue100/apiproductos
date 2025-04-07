@@ -22,6 +22,12 @@ public class ProductoService {
         return productoRepository.findAll();
     }
 
+    public List<Producto> obtenerTodosDisponibles() {
+        return productoRepository.findByUnidadesDisponiblesGreaterThan(0);
+    }
+
+
+
     public Producto obtenerPorId(Long id) {
         return productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
@@ -37,10 +43,25 @@ public class ProductoService {
         existente.setDescripcion(producto.getDescripcion());
         existente.setImagenUrl(producto.getImagenUrl());
         existente.setPrecio(producto.getPrecio());
+        existente.setDescripcionExtensa(producto.getDescripcionExtensa());
+        existente.setUnidadesDisponibles(producto.getUnidadesDisponibles());
 
 
         return productoRepository.save(existente);
     }
+
+
+    public Producto actualizarCantidadDisponibleProducto(Long id, int cantidadVendida) {
+        Producto existente = productoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        existente.setUnidadesDisponibles(existente.getUnidadesDisponibles()-cantidadVendida);
+
+
+        return productoRepository.save(existente);
+    }
+
+
 
     public boolean eliminarProducto(Long id) {
 
